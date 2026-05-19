@@ -40,10 +40,10 @@ export default function Header() {
           <img
             src="/brand/logo-main-icon-web.png"
             alt="Lamblin Studio"
-            className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
+            className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
             draggable={false}
           />
-          <span className="font-bold text-white tracking-tight">
+          <span className="font-bold text-white tracking-tight text-lg">
             Lamblin<span className="text-gradient-blue"> Studio</span>
           </span>
         </button>

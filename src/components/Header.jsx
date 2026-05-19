@@ -38,7 +38,7 @@ export default function Header() {
         >
           {/* logo-main-icon.png : icône seule, sans le texte */}
           <img
-            src="/brand/logo-main-icon.png"
+            src="/brand/logo-main-icon-web.png"
             alt="Lamblin Studio"
             className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
             draggable={false}

@@ -51,16 +51,19 @@ export default function Hero() {
       {/* ── Content ── */}
       <div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
 
-        {/* Logo principal — logo-main-full.png */}
-        <div className="mt-28 mb-2">
+        {/* Logo principal
+            ATTENTION : logo-main-full.png est actuellement un fichier invalide
+            (probablement un AI/PSD renommé). Ré-exportez-le depuis votre logiciel
+            de design en "Exporter > PNG" puis replacez le fichier.
+            En attendant, on affiche logo-main-icon-web.png + texte. */}
+        <div className="mt-28 mb-2 flex flex-col items-center gap-3">
           <img
-            src="/brand/logo-main-full.png"
+            src="/brand/logo-main-icon-web.png"
             alt="Lamblin Studio"
-            className="h-14 md:h-18 object-contain mx-auto select-none"
+            className="h-14 md:h-16 w-auto object-contain mx-auto select-none"
             style={{
               filter:
-                'drop-shadow(0 0 24px rgba(212,168,0,0.25)) drop-shadow(0 0 8px rgba(96,165,250,0.15))',
-              maxHeight: '72px',
+                'drop-shadow(0 0 20px rgba(212,168,0,0.3)) drop-shadow(0 0 8px rgba(96,165,250,0.15))',
             }}
             draggable={false}
           />

@@ -80,13 +80,7 @@ export default function Hero() {
         {/* Text block */}
         <div className="text-center max-w-2xl -mt-4 md:-mt-6">
           {/* Status badge */}
-          <div className="section-tag mb-5 mx-auto w-fit">
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 mr-1.5"
-              style={{ animation: 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite' }}
-            />
-            Studio Digital Indépendant
-          </div>
+          
 
           <h1
             className="font-black text-white tracking-tight leading-[0.95] mb-5"

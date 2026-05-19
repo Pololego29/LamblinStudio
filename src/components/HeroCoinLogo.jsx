@@ -13,7 +13,7 @@ const COIN_RADIUS      = 1.5
 const COIN_THICKNESS   = 0.20
 //  ^ épaisseur de la tranche. Ex: 0.14 (fine) → 0.28 (épaisse).
 
-const FRONT_LOGO_SCALE    = 1.09
+const FRONT_LOGO_SCALE    = 1.1
 //  ^ ratio 0–1 : fraction du diamètre de la pièce occupée par la loutre.
 //  0.72 = 72 % du diamètre → taille réelle du plan = COIN_RADIUS * 2 * 0.72
 //  ▸ Loutre trop petite → augmenter (ex: 0.80, 0.88)
@@ -202,13 +202,24 @@ function Coin({ mouseRef }) {
 
   // ── Matériaux ─────────────────────────────────────────────────────────────
 
-  // Face dorée : MeshPhysicalMaterial pour le clearcoat premium
-  const goldFaceMat = useMemo(() => new THREE.MeshPhysicalMaterial({
-    map: goldColorMap,           // nuances champagne radiales
-    roughnessMap: striaMap,      // stries en roughness
+  // Face AVANT (sous la loutre) — moins brillante, plus mate et naturelle
+  const goldFrontMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    map: goldColorMap,
+    roughnessMap: striaMap,
+    metalness: 0.72,
+    roughness: 0.42,
+    clearcoat: 0.08,
+    clearcoatRoughness: 0.40,
+    envMapIntensity: 0.7,
+  }), [goldColorMap, striaMap])
+
+  // Face ARRIÈRE (Lamblin Studio) — garde l'effet brillant premium
+  const goldBackMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    map: goldColorMap,
+    roughnessMap: striaMap,
     metalness: 0.90,
-    roughness: 0.20,             // valeur de base, modulée par striaMap
-    clearcoat: 0.30,             // vernis brillant léger
+    roughness: 0.20,
+    clearcoat: 0.30,
     clearcoatRoughness: 0.18,
     envMapIntensity: 1.6,
   }), [goldColorMap, striaMap])
@@ -290,8 +301,8 @@ function Coin({ mouseRef }) {
 
       {/* ══ FACE AVANT ══════════════════════════════════════════════════ */}
 
-      {/* Disque doré base */}
-      <mesh material={goldFaceMat} position={[0, 0, T2]}>
+      {/* Disque doré base — mat/doux sous la loutre */}
+      <mesh material={goldFrontMat} position={[0, 0, T2]}>
         <circleGeometry args={[COIN_RADIUS, 128]} />
       </mesh>
 
@@ -310,8 +321,8 @@ function Coin({ mouseRef }) {
 
       {/* ══ FACE ARRIÈRE ════════════════════════════════════════════════ */}
 
-      {/* Disque doré base (rotation.y=PI → normale pointe en -Z) */}
-      <mesh material={goldFaceMat} position={[0, 0, -T2]} rotation={[0, Math.PI, 0]}>
+      {/* Disque doré base — brillant pour le côté Lamblin Studio */}
+      <mesh material={goldBackMat} position={[0, 0, -T2]} rotation={[0, Math.PI, 0]}>
         <circleGeometry args={[COIN_RADIUS, 128]} />
       </mesh>
 

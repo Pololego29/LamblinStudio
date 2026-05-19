@@ -36,14 +36,13 @@ export default function Header() {
           onClick={() => handleNav('#home')}
           className="flex items-center gap-2.5 group"
         >
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #3b82f6, #6366f1)' }}
-          >
-            <span className="text-white font-black text-sm">L</span>
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
-            />
-          </div>
+          {/* logo-main-icon.png : icône seule, sans le texte */}
+          <img
+            src="/brand/logo-main-icon.png"
+            alt="Lamblin Studio"
+            className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
+            draggable={false}
+          />
           <span className="font-bold text-white tracking-tight">
             Lamblin<span className="text-gradient-blue"> Studio</span>
           </span>

@@ -1,191 +1,157 @@
-import { useEffect, useRef } from 'react'
-
-function ParticleCanvas() {
-  const canvasRef = useRef(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let animId
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    const count = 80
-    const particles = Array.from({ length: count }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.3,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      alpha: Math.random() * 0.5 + 0.1,
-    }))
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      for (const p of particles) {
-        p.x += p.vx
-        p.y += p.vy
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(96,165,250,${p.alpha})`
-        ctx.fill()
-      }
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 120) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(96,165,250,${0.06 * (1 - dist / 120)})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw)
-    }
-
-    draw()
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-}
+import HeroCoinLogo from './HeroCoinLogo'
 
 export default function Hero() {
-  const handleNav = (href) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const scrollTo = (id) =>
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.12) 0%, #030712 60%)' }}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6"
+      style={{
+        background:
+          'radial-gradient(ellipse 90% 55% at 50% 5%, rgba(212,168,0,0.07) 0%, rgba(59,130,246,0.07) 40%, #030712 72%)',
+      }}
     >
-      {/* Grid overlay */}
+      {/* Subtle gold-tinted grid */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(96,165,250,1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(96,165,250,1) 1px, transparent 1px)
+            linear-gradient(rgba(255,210,80,0.6) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,210,80,0.6) 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px',
+          opacity: 0.025,
         }}
       />
 
-      {/* Particle canvas */}
-      <div className="absolute inset-0">
-        <ParticleCanvas />
-      </div>
-
-      {/* Radial glow center */}
+      {/* Golden glow halo centred behind the coin */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-10 animate-glow pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(99,102,241,0.8) 0%, transparent 70%)' }}
+        className="absolute pointer-events-none"
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -54%)',
+          width: 560,
+          height: 560,
+          borderRadius: '50%',
+          background:
+            'radial-gradient(ellipse, rgba(212,168,0,0.13) 0%, transparent 68%)',
+          filter: 'blur(40px)',
+        }}
       />
 
-      {/* Side accents */}
-      <div className="absolute top-1/3 -left-32 w-96 h-96 rounded-full opacity-[0.06] blur-3xl"
-        style={{ background: 'radial-gradient(circle, #3b82f6, transparent)' }} />
-      <div className="absolute bottom-1/3 -right-32 w-96 h-96 rounded-full opacity-[0.06] blur-3xl"
-        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent)' }} />
+      {/* Blue side accent */}
+      <div
+        className="absolute -right-40 top-1/3 w-96 h-96 rounded-full pointer-events-none opacity-[0.06] blur-3xl"
+        style={{ background: 'radial-gradient(circle, #6366f1, transparent)' }}
+      />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 mb-8 animate-fade-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-          <span className="section-tag">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+      {/* ── Content ── */}
+      <div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
+
+        {/* Logo principal — logo-main-full.png */}
+        <div className="mt-28 mb-2">
+          <img
+            src="/brand/logo-main-full.png"
+            alt="Lamblin Studio"
+            className="h-14 md:h-18 object-contain mx-auto select-none"
+            style={{
+              filter:
+                'drop-shadow(0 0 24px rgba(212,168,0,0.25)) drop-shadow(0 0 8px rgba(96,165,250,0.15))',
+              maxHeight: '72px',
+            }}
+            draggable={false}
+          />
+        </div>
+
+        {/* 3D Coin — responsive sizing */}
+        <div
+          className="w-64 h-64 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px]"
+          aria-label="Pièce Lamblin Studio 3D"
+        >
+          <HeroCoinLogo />
+        </div>
+
+        {/* Text block */}
+        <div className="text-center max-w-2xl -mt-4 md:-mt-6">
+          {/* Status badge */}
+          <div className="section-tag mb-5 mx-auto w-fit">
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 mr-1.5"
+              style={{ animation: 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite' }}
+            />
             Studio Digital Indépendant
-          </span>
-        </div>
+          </div>
 
-        {/* Main heading */}
-        <h1
-          className="font-black tracking-tight mb-6 leading-[0.95] animate-fade-up"
-          style={{ animationDelay: '0.2s', animationFillMode: 'both', fontSize: 'clamp(3rem, 8vw, 7.5rem)' }}
-        >
-          <span className="block text-white">Des expériences</span>
-          <span className="block text-gradient">digitales modernes,</span>
-          <span className="block text-white/90">pensées pour marquer.</span>
-        </h1>
+          <h1
+            className="font-black text-white tracking-tight leading-[0.95] mb-5"
+            style={{ fontSize: 'clamp(2rem, 5.5vw, 4.2rem)' }}
+          >
+            Des expériences{' '}
+            <span className="text-gradient">digitales modernes,</span>
+            <br />
+            <span className="text-white/85">pensées pour marquer.</span>
+          </h1>
 
-        {/* Subtitle */}
-        <p
-          className="text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up"
-          style={{ animationDelay: '0.35s', animationFillMode: 'both', fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}
-        >
-          Lamblin Studio conçoit des sites web, applications interactives et plateformes numériques
-          avec une attention particulière portée au design, à la performance et à l'expérience utilisateur.
-        </p>
+          <p
+            className="text-white/45 leading-relaxed mb-8 mx-auto"
+            style={{
+              maxWidth: '44ch',
+              fontSize: 'clamp(0.9rem, 1.6vw, 1.05rem)',
+            }}
+          >
+            Lamblin Studio conçoit sites web, applications et plateformes
+            numériques avec une attention particulière portée au design, à la
+            performance et à l'expérience utilisateur.
+          </p>
 
-        {/* CTAs */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up"
-          style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
-        >
-          <button onClick={() => handleNav('#projects')} className="btn-primary text-base px-8 py-4">
-            Découvrir les projets
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </button>
-          <button onClick={() => handleNav('#contact')} className="btn-secondary text-base px-8 py-4">
-            Me contacter
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div
-          className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 animate-fade-up"
-          style={{ animationDelay: '0.65s', animationFillMode: 'both' }}
-        >
-          {[
-            { value: '2', label: 'Projets en cours' },
-            { value: '100%', label: 'Focus design' },
-            { value: '∞', label: 'Ambition' },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-3xl font-black text-gradient-blue">{s.value}</div>
-              <div className="text-white/40 text-sm mt-1 tracking-wide">{s.label}</div>
-            </div>
-          ))}
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => scrollTo('#projects')}
+              className="btn-primary px-8 py-4 text-base"
+            >
+              Découvrir les projets
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollTo('#contact')}
+              className="btn-secondary px-8 py-4 text-base"
+            >
+              Me contacter
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-white/50 text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-12 relative overflow-hidden bg-white/10">
-          <div className="w-full h-1/2 bg-gradient-to-b from-transparent to-blue-400 animate-[scrollDown_1.5s_ease_infinite]" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 pointer-events-none">
+        <span className="text-white/50 text-xs tracking-widest uppercase">
+          Scroll
+        </span>
+        <div className="w-px h-10 relative overflow-hidden bg-white/10">
+          <div
+            className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-yellow-400"
+            style={{ animation: 'scrollLine 1.6s ease infinite' }}
+          />
         </div>
       </div>
 
       <style>{`
-        @keyframes scrollDown {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(200%); }
+        @keyframes scrollLine {
+          0%   { transform: translateY(-100%); }
+          100% { transform: translateY(250%); }
         }
       `}</style>
     </section>

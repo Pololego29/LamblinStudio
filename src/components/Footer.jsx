@@ -18,12 +18,12 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-2">
-              <div
-                className="w-7 h-7 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #3b82f6, #6366f1)' }}
-              >
-                <span className="text-white font-black text-xs">L</span>
-              </div>
+              <img
+                src="/brand/logo-main-icon.png"
+                alt="Lamblin Studio"
+                className="h-7 w-7 object-contain select-none"
+                draggable={false}
+              />
               <span className="font-bold text-white">
                 Lamblin<span className="text-gradient-blue"> Studio</span>
               </span>

@@ -2,20 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 
 /**
  * Effet "hover reveal" : deux images superposées (même cadrage).
- * Au survol, un halo circulaire autour du curseur révèle l'image `imageReveal`
- * par-dessus `imageBase`, avec un bord doux (feather) et une aura cyan.
+ * Au survol, un halo circulaire autour du curseur révèle `imageReveal`
+ * par-dessus `imageBase`, bord doux (feather) + aura cyan.
  *
- * - imageBase   : image visible par défaut
- * - imageReveal : image révélée dans le halo
- * - radius      : rayon du halo en px
- *
- * Position suivie en CSS (mask radial-gradient) + lissage par lerp/rAF,
- * sans re-render React à chaque mouvement → fluide et léger.
- * Mobile : le halo suit le doigt (tap & glisse).
+ * Le masque est défini dans le style (var CSS --rx / --ry) ; on ne met à jour
+ * que ces variables (via ref + lissage rAF), sans re-render React → fluide.
+ * Mobile : le halo suit le doigt (touche & glisse).
  */
 export default function HoverRevealImage({ imageBase, imageReveal, alt = '', radius = 175, className = '' }) {
   const containerRef = useRef(null)
-  const revealRef = useRef(null)
   const haloRef = useRef(null)
 
   const target = useRef({ x: 0, y: 0 })
@@ -23,23 +18,19 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
   const raf = useRef(null)
   const [active, setActive] = useState(false)
 
-  const apply = () => {
-    const { x, y } = current.current
-    const mask = `radial-gradient(circle ${radius}px at ${x}px ${y}px, #000 0%, #000 42%, rgba(0,0,0,0.35) 62%, transparent 80%)`
-    const el = revealRef.current
-    if (el) {
-      el.style.maskImage = mask
-      el.style.webkitMaskImage = mask
+  const setVars = (x, y) => {
+    const c = containerRef.current
+    if (c) {
+      c.style.setProperty('--rx', `${x}px`)
+      c.style.setProperty('--ry', `${y}px`)
     }
-    const h = haloRef.current
-    if (h) h.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
+    if (haloRef.current) haloRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
   }
 
   const loop = () => {
-    // lissage : on rapproche doucement la position courante de la cible
     current.current.x += (target.current.x - current.current.x) * 0.18
     current.current.y += (target.current.y - current.current.y) * 0.18
-    apply()
+    setVars(current.current.x, current.current.y)
     raf.current = requestAnimationFrame(loop)
   }
 
@@ -61,14 +52,14 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
     target.current = { x: clientX - rect.left, y: clientY - rect.top }
   }
 
-  // Position initiale au centre (halo prêt même avant le 1er survol)
+  // Position initiale au centre
   useEffect(() => {
     const rect = containerRef.current?.getBoundingClientRect()
     if (rect) {
       const c = { x: rect.width / 2, y: rect.height / 2 }
       target.current = { ...c }
       current.current = { ...c }
-      apply()
+      setVars(c.x, c.y)
     }
     return () => {
       if (raf.current) cancelAnimationFrame(raf.current)
@@ -76,10 +67,13 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const mask = `radial-gradient(circle ${radius}px at var(--rx, 50%) var(--ry, 50%), #000 0%, #000 42%, rgba(0,0,0,0.4) 62%, transparent 80%)`
+
   return (
     <div
       ref={containerRef}
       className={`relative overflow-hidden ${className}`}
+      style={{ '--rx': '50%', '--ry': '50%' }}
       onMouseEnter={(e) => {
         setTarget(e.clientX, e.clientY)
         current.current = { ...target.current }
@@ -100,7 +94,7 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
       }}
       onTouchEnd={stop}
     >
-      {/* Image naturelle (visible par défaut) */}
+      {/* Image classique (visible par défaut, au-dessus) */}
       <img
         src={imageBase}
         alt={alt}
@@ -108,9 +102,8 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
         draggable={false}
       />
 
-      {/* Image futuriste (révélée par le masque) */}
+      {/* Image modifiée (révélée dans le halo) */}
       <img
-        ref={revealRef}
         src={imageReveal}
         alt=""
         aria-hidden="true"
@@ -118,22 +111,23 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
         draggable={false}
         style={{
           opacity: active ? 1 : 0,
-          transition: 'opacity 0.35s ease',
-          maskRepeat: 'no-repeat',
+          transition: 'opacity 0.3s ease',
+          WebkitMaskImage: mask,
+          maskImage: mask,
           WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat',
         }}
       />
 
-      {/* Halo / aura cyan autour du curseur */}
+      {/* Halo / aura cyan */}
       <div
         ref={haloRef}
         className="pointer-events-none absolute top-0 left-0 rounded-full"
         style={{
           width: radius * 2,
           height: radius * 2,
-          border: '1px solid rgba(56,189,248,0.45)',
-          boxShadow:
-            '0 0 60px 14px rgba(56,189,248,0.22), inset 0 0 60px rgba(56,189,248,0.18)',
+          border: '1px solid rgba(56,189,248,0.5)',
+          boxShadow: '0 0 60px 14px rgba(56,189,248,0.22), inset 0 0 60px rgba(56,189,248,0.18)',
           opacity: active ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}

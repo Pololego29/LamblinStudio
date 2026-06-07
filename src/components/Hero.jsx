@@ -1,6 +1,9 @@
 // La pièce 3D est conservée mais désactivée (cf. plus bas). Pour la réactiver,
 // décommente l'import et le bloc <HeroCoinLogo /> dans le JSX.
 // import HeroCoinLogo from './HeroCoinLogo'
+import { SITE } from '../data/site'
+import BackgroundSlideshow from './BackgroundSlideshow'
+import RotatingTitle from './RotatingTitle'
 
 export default function Hero() {
   const scrollTo = (id) =>
@@ -11,18 +14,15 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6"
     >
-      {/* Background image — voie lactée */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/background.avif)' }}
-      />
+      {/* Fonds en diaporama (fondu, toutes les 5–9s) */}
+      <BackgroundSlideshow images={SITE.heroBackgrounds} />
 
       {/* Overlay pour la lisibilité du texte + fondu vers la section suivante */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(3,7,18,0.55) 0%, rgba(3,7,18,0.30) 38%, rgba(3,7,18,0.78) 82%, #030712 100%)',
+            'linear-gradient(180deg, rgba(3,7,18,0.60) 0%, rgba(3,7,18,0.42) 38%, rgba(3,7,18,0.80) 82%, #030712 100%)',
         }}
       />
       {/* Vignette douce */}
@@ -56,14 +56,12 @@ export default function Hero() {
           </div>
         */}
 
-        {/* Wordmark */}
-        <h1
+        {/* Wordmark — se morphe entre les phrases (effet flou) */}
+        <RotatingTitle
+          phrases={SITE.heroPhrases}
           className="font-black tracking-tight leading-[0.95]"
-          style={{ fontSize: 'clamp(2.8rem, 8vw, 5.8rem)', textShadow: '0 4px 40px rgba(0,0,0,0.5)' }}
-        >
-          <span className="text-white">Lamblin</span>{' '}
-          <span className="text-gradient">Studio</span>
-        </h1>
+          style={{ fontSize: 'clamp(2.4rem, 7.5vw, 5.4rem)', textShadow: '0 4px 40px rgba(0,0,0,0.5)' }}
+        />
 
         <p
           className="text-white/70 leading-relaxed mt-6 mx-auto"

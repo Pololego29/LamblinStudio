@@ -9,6 +9,15 @@ export const SITE = {
   github: 'https://github.com/Pololego29',
   linkedin: 'https://www.linkedin.com/in/paul-lamblin',
 
+  // Fonds du hero : ils s'enchaînent en fondu, toutes les 5–9s. Ajoute/retire librement.
+  heroBackgrounds: ['/background.avif', '/fond-2.webp', '/fond-3.webp'],
+
+  // Phrases qui se morphent (effet flou) dans le titre du hero.
+  heroPhrases: [
+    { lead: 'Lamblin', accent: 'Studio' },
+    { lead: 'Studio', accent: 'indépendant' },
+  ],
+
   // Ta photo : dépose le fichier dans  public/photo.jpg  (ou change le chemin).
   // Si le fichier est absent, un visuel de secours s'affiche automatiquement.
   photo: '/photo.jpg',

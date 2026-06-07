@@ -28,7 +28,8 @@ export const PROJECTS = [
       'Un hub moderne de jeux en ligne pensé comme une plateforme évolutive : plusieurs expériences de jeu, profils joueurs et une interface soignée.',
     tags: ['Web App', 'Gaming', 'React'],
     url: 'https://ekipgame.com/',
-    accent: '#06b6d4',
+    cover: '/ekip-game-cover.webp', // bandeau pleine largeur
+    accent: '#22d3ee',
     glow: 'rgba(6,182,212,0.30)',
     bg: 'radial-gradient(ellipse at 30% 0%, rgba(6,182,212,0.22) 0%, rgba(59,130,246,0.10) 45%, rgba(3,7,18,0) 100%)',
     icon: '🎮',

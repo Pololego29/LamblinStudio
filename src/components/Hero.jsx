@@ -1,4 +1,6 @@
-import HeroCoinLogo from './HeroCoinLogo'
+// La pièce 3D est conservée mais désactivée (cf. plus bas). Pour la réactiver,
+// décommente l'import et le bloc <HeroCoinLogo /> dans le JSX.
+// import HeroCoinLogo from './HeroCoinLogo'
 
 export default function Hero() {
   const scrollTo = (id) =>
@@ -8,105 +10,89 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6"
-      style={{
-        background:
-          'radial-gradient(ellipse 90% 55% at 50% 5%, rgba(212,168,0,0.07) 0%, rgba(59,130,246,0.07) 40%, #030712 72%)',
-      }}
     >
-      {/* Subtle gold-tinted grid */}
+      {/* Background image — voie lactée */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: 'url(/background.avif)' }}
+      />
+
+      {/* Overlay pour la lisibilité du texte + fondu vers la section suivante */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(3,7,18,0.55) 0%, rgba(3,7,18,0.30) 38%, rgba(3,7,18,0.78) 82%, #030712 100%)',
+        }}
+      />
+      {/* Vignette douce */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,210,80,0.6) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,210,80,0.6) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-          opacity: 0.025,
-        }}
-      />
-
-      {/* Golden glow halo centred behind the coin */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -54%)',
-          width: 560,
-          height: 560,
-          borderRadius: '50%',
-          background:
-            'radial-gradient(ellipse, rgba(212,168,0,0.13) 0%, transparent 68%)',
-          filter: 'blur(40px)',
-        }}
-      />
-
-      {/* Blue side accent */}
-      <div
-        className="absolute -right-40 top-1/3 w-96 h-96 rounded-full pointer-events-none opacity-[0.06] blur-3xl"
-        style={{ background: 'radial-gradient(circle, #6366f1, transparent)' }}
+        style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, rgba(3,7,18,0.55) 100%)' }}
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl text-center">
 
-        {/* 3D Coin — responsive sizing */}
-        <div
-          className="mt-24 w-56 h-56 sm:w-72 sm:h-72 md:w-[400px] md:h-[400px]"
-          aria-label="Pièce Lamblin Studio 3D"
-        >
-          <HeroCoinLogo />
+        {/* Logo */}
+        <div className="relative mb-8">
+          <div
+            className="absolute -inset-6 rounded-full blur-2xl opacity-60"
+            style={{ background: 'radial-gradient(circle, rgba(96,165,250,0.45), transparent 70%)' }}
+          />
+          <img
+            src="/brand/logo-web.png"
+            alt="Lamblin Studio"
+            className="relative w-28 h-28 md:w-36 md:h-36 object-contain select-none"
+            style={{ filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))' }}
+            draggable={false}
+          />
         </div>
 
-        {/* Wordmark */}
-        <div className="text-center -mt-2">
-          <h1
-            className="font-black tracking-tight leading-[0.95]"
-            style={{ fontSize: 'clamp(2.6rem, 8vw, 5.5rem)' }}
-          >
-            <span className="text-white">Lamblin</span>{' '}
-            <span className="text-gradient">Studio</span>
-          </h1>
-
-          <p
-            className="text-white/55 leading-relaxed mt-6 mx-auto"
-            style={{
-              maxWidth: '42ch',
-              fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
-            }}
-          >
-            Sites web, applications web et iOS — conçus, développés et mis en
-            ligne avec soin.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9">
-            <button
-              onClick={() => scrollTo('#projects')}
-              className="btn-primary px-8 py-4 text-base"
-            >
-              Voir les projets
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-            <button
-              onClick={() => scrollTo('#contact')}
-              className="btn-secondary px-8 py-4 text-base"
-            >
-              Me contacter
-            </button>
+        {/*
+          ── PIÈCE 3D (désactivée, gardée au cas où) ──
+          <div className="w-56 h-56 md:w-[380px] md:h-[380px]">
+            <HeroCoinLogo />
           </div>
+        */}
+
+        {/* Wordmark */}
+        <h1
+          className="font-black tracking-tight leading-[0.95]"
+          style={{ fontSize: 'clamp(2.8rem, 8vw, 5.8rem)', textShadow: '0 4px 40px rgba(0,0,0,0.5)' }}
+        >
+          <span className="text-white">Lamblin</span>{' '}
+          <span className="text-gradient">Studio</span>
+        </h1>
+
+        <p
+          className="text-white/70 leading-relaxed mt-6 mx-auto"
+          style={{ maxWidth: '42ch', fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
+        >
+          Sites web, applications web et iOS — conçus, développés et mis en ligne
+          avec soin.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9">
+          <button onClick={() => scrollTo('#projects')} className="btn-primary px-8 py-4 text-base">
+            Voir les projets
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button onClick={() => scrollTo('#contact')} className="btn-secondary px-8 py-4 text-base">
+            Me contacter
+          </button>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 pointer-events-none">
-        <span className="text-white/50 text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-10 relative overflow-hidden bg-white/10">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 pointer-events-none">
+        <span className="text-white/60 text-xs tracking-widest uppercase">Scroll</span>
+        <div className="w-px h-10 relative overflow-hidden bg-white/15">
           <div
-            className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-yellow-400"
+            className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-blue-400"
             style={{ animation: 'scrollLine 1.6s ease infinite' }}
           />
         </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SITE } from '../data/site'
+import Reveal from './Reveal'
 
 const GithubIcon = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -30,7 +31,7 @@ export default function AboutSection() {
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="grid md:grid-cols-[300px_1fr] gap-12 md:gap-16 items-center">
           {/* Photo */}
-          <div className="mx-auto md:mx-0">
+          <Reveal className="mx-auto md:mx-0">
             <div className="relative w-56 h-56 md:w-[300px] md:h-[300px]">
               {/* Glow ring */}
               <div
@@ -60,10 +61,10 @@ export default function AboutSection() {
                 )}
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Text */}
-          <div>
+          <Reveal delay={120}>
             <div className="section-tag mb-5">À propos</div>
 
             <h2
@@ -121,7 +122,7 @@ export default function AboutSection() {
                 LinkedIn
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

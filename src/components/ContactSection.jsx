@@ -1,4 +1,5 @@
 import { SITE } from '../data/site'
+import Reveal from './Reveal'
 
 const REASONS = [
   {
@@ -84,26 +85,29 @@ export default function ContactSection() {
       />
 
       <div className="max-w-5xl mx-auto relative z-10 text-center">
-        <div className="section-tag mb-6 mx-auto w-fit">Contact</div>
+        <Reveal>
+          <div className="section-tag mb-6 mx-auto w-fit">Contact</div>
 
-        <h2
-          className="font-black text-white tracking-tight mb-5 leading-tight"
-          style={{ fontSize: 'clamp(2.2rem, 6vw, 4.5rem)' }}
-        >
-          Me <span className="text-gradient">contacter.</span>
-        </h2>
+          <h2
+            className="font-black text-white tracking-tight mb-5 leading-tight"
+            style={{ fontSize: 'clamp(2.2rem, 6vw, 4.5rem)' }}
+          >
+            Me <span className="text-gradient">contacter.</span>
+          </h2>
 
-        <p className="text-white/45 max-w-lg mx-auto mb-14 leading-relaxed">
-          Une raison de m'écrire ? En voici quelques-unes — la boîte mail est
-          toujours ouverte.
-        </p>
+          <p className="text-white/45 max-w-lg mx-auto leading-relaxed">
+            Une raison de m'écrire ? En voici quelques-unes — la boîte mail est
+            toujours ouverte.
+          </p>
+        </Reveal>
 
         {/* Why contact me */}
-        <div className="grid sm:grid-cols-3 gap-4 mb-14 text-left">
-          {REASONS.map((r) => (
-            <div
+        <div className="grid sm:grid-cols-3 gap-4 mt-14 mb-14 text-left">
+          {REASONS.map((r, i) => (
+            <Reveal
               key={r.title}
-              className="glass rounded-2xl p-6 hover:bg-white/[0.06] transition-all duration-300"
+              delay={i * 110}
+              className="glass rounded-2xl p-6 hover:bg-white/[0.06] hover:-translate-y-1 transition-all duration-300"
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
@@ -117,7 +121,7 @@ export default function ContactSection() {
               </div>
               <h3 className="text-white font-semibold mb-1.5">{r.title}</h3>
               <p className="text-white/40 text-sm leading-relaxed">{r.desc}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
 

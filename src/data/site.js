@@ -13,11 +13,9 @@ export const SITE = {
   heroBackgrounds: ['/fond-2.webp'],
 
   // Section "hover reveal" : 2 images du MÊME cadrage (naturelle → futuriste).
-  // Dépose tes 2 images dans public/ et mets leurs chemins ici.
-  // (Par défaut : démo avec des images existantes, à remplacer.)
   reveal: {
-    base: '/fond-3.webp',      // image naturelle, visible par défaut
-    futur: '/background.avif', // image révélée autour du curseur
+    base: '/reveal-classique.webp', // version classique, visible par défaut (dessus)
+    futur: '/reveal-modif.webp',    // version modifiée, révélée autour du curseur (dessous)
   },
 
   // Phrases qui se morphent (effet flou) dans le titre du hero.

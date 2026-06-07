@@ -2,8 +2,8 @@
 // décommente l'import et le bloc <HeroCoinLogo /> dans le JSX.
 // import HeroCoinLogo from './HeroCoinLogo'
 import { SITE } from '../data/site'
-import BackgroundSlideshow from './BackgroundSlideshow'
 import RotatingTitle from './RotatingTitle'
+import HoverRevealImage from './HoverRevealImage'
 
 export default function Hero() {
   const scrollTo = (id) =>
@@ -14,25 +14,31 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6"
     >
-      {/* Fonds en diaporama (fondu, toutes les 5–9s) */}
-      <BackgroundSlideshow images={SITE.heroBackgrounds} />
-
-      {/* Overlay pour la lisibilité du texte + fondu vers la section suivante */}
-      <div
+      {/* Fond interactif : survole pour révéler la version futuriste */}
+      <HoverRevealImage
+        imageBase={SITE.reveal.base}
+        imageReveal={SITE.reveal.futur}
+        alt="Lamblin Studio"
+        radius={230}
         className="absolute inset-0"
+      />
+
+      {/* Overlay lisibilité (laisse passer la souris) */}
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(3,7,18,0.60) 0%, rgba(3,7,18,0.42) 38%, rgba(3,7,18,0.80) 82%, #030712 100%)',
+            'linear-gradient(180deg, rgba(3,7,18,0.62) 0%, rgba(3,7,18,0.30) 40%, rgba(3,7,18,0.55) 78%, #030712 100%)',
         }}
       />
       {/* Vignette douce */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, rgba(3,7,18,0.55) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse 75% 65% at 50% 45%, transparent 42%, rgba(3,7,18,0.5) 100%)' }}
       />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl text-center">
+      {/* ── Content (laisse passer la souris vers le fond, sauf les boutons) ── */}
+      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl text-center pointer-events-none">
 
         {/* Logo */}
         <div className="relative mb-8">
@@ -60,11 +66,11 @@ export default function Hero() {
         <RotatingTitle
           phrases={SITE.heroPhrases}
           className="font-black tracking-tight leading-[0.95]"
-          style={{ fontSize: 'clamp(2.4rem, 7.5vw, 5.4rem)', textShadow: '0 4px 40px rgba(0,0,0,0.5)' }}
+          style={{ fontSize: 'clamp(2.4rem, 7.5vw, 5.4rem)', textShadow: '0 4px 40px rgba(0,0,0,0.6)' }}
         />
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+        {/* CTAs (cliquables) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 pointer-events-auto">
           <button onClick={() => scrollTo('#projects')} className="btn-primary px-8 py-4 text-base">
             Voir les projets
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

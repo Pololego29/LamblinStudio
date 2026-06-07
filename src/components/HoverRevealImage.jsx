@@ -95,10 +95,14 @@ export default function HoverRevealImage({ imageBase, imageReveal, alt = '', rad
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Si le parent fournit déjà une position (absolute/fixed/relative/sticky),
+  // on ne force pas "relative" (sinon il écraserait un "absolute" voulu).
+  const hasPosition = /(^|\s)(absolute|fixed|relative|sticky)(\s|$)/.test(className)
+
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden ${className}`}
+      className={`overflow-hidden ${hasPosition ? '' : 'relative'} ${className}`}
       onMouseEnter={(e) => open(e.clientX, e.clientY)}
       onMouseMove={(e) => setTarget(e.clientX, e.clientY)}
       onMouseLeave={close}

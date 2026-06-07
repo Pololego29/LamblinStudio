@@ -1,5 +1,3 @@
-import { SITE } from '../data/site'
-
 const QUICK_LINKS = [
   { label: 'Projets', href: '#projects' },
   { label: 'À propos', href: '#about' },
@@ -44,12 +42,6 @@ export default function Footer() {
                 {l.label}
               </button>
             ))}
-            <a
-              href={`mailto:${SITE.email}`}
-              className="text-white/30 hover:text-white/70 text-sm transition-colors duration-200"
-            >
-              Email
-            </a>
           </nav>
         </div>
 

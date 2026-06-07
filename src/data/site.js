@@ -12,6 +12,14 @@ export const SITE = {
   // Ta photo : dépose le fichier dans  public/photo.jpg  (ou change le chemin).
   // Si le fichier est absent, un visuel de secours s'affiche automatiquement.
   photo: '/photo.jpg',
+
+  // ── Formulaire de contact (Web3Forms — gratuit, sans compte) ──────────────
+  // Pour l'activer :
+  //   1. Va sur  https://web3forms.com
+  //   2. Entre l'email où tu veux recevoir les messages (ex. contact@lamblinstudio.fr)
+  //   3. Copie l'« Access Key » reçue et colle-la ci-dessous (entre les guillemets)
+  // Tant que la clé n'est pas mise, le formulaire affiche un message d'erreur.
+  formAccessKey: 'VOTRE_ACCESS_KEY_WEB3FORMS',
 }
 
 // ───────────────────────────────────────────────────────────────────────────

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { SITE } from '../data/site'
 
 const NAV_LINKS = [
   { label: 'Projets', href: '#projects', id: 'projects' },
@@ -81,12 +80,12 @@ export default function Header() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center">
-          <a href={`mailto:${SITE.email}`} className="btn-primary text-sm py-2.5 px-5">
+          <button onClick={() => handleNav('#contact')} className="btn-primary text-sm py-2.5 px-5">
             Me contacter
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </button>
         </div>
 
         {/* Mobile burger */}
@@ -117,9 +116,9 @@ export default function Header() {
               {l.label}
             </button>
           ))}
-          <a href={`mailto:${SITE.email}`} className="btn-primary justify-center mt-2">
+          <button onClick={() => handleNav('#contact')} className="btn-primary justify-center mt-2">
             Me contacter
-          </a>
+          </button>
         </div>
       </div>
     </header>

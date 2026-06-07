@@ -1,5 +1,6 @@
 import { SITE } from '../data/site'
 import Reveal from './Reveal'
+import ContactForm from './ContactForm'
 
 const REASONS = [
   {
@@ -54,17 +55,6 @@ const SOCIALS = [
       </svg>
     ),
   },
-  {
-    label: 'Email',
-    href: `mailto:${SITE.email}`,
-    color: '#34d399',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-        <polyline points="22,6 12,13 2,6" />
-      </svg>
-    ),
-  },
 ]
 
 export default function ContactSection() {
@@ -84,20 +74,18 @@ export default function ContactSection() {
         style={{ background: 'radial-gradient(ellipse, #3b82f6, transparent)' }}
       />
 
-      <div className="max-w-5xl mx-auto relative z-10 text-center">
-        <Reveal>
+      <div className="max-w-5xl mx-auto relative z-10">
+        <Reveal className="text-center">
           <div className="section-tag mb-6 mx-auto w-fit">Contact</div>
-
           <h2
             className="font-black text-white tracking-tight mb-5 leading-tight"
             style={{ fontSize: 'clamp(2.2rem, 6vw, 4.5rem)' }}
           >
             Me <span className="text-gradient">contacter.</span>
           </h2>
-
           <p className="text-white/45 max-w-lg mx-auto leading-relaxed">
-            Une raison de m'écrire ? En voici quelques-unes — la boîte mail est
-            toujours ouverte.
+            Une raison de m'écrire ? En voici quelques-unes — remplis le formulaire,
+            je te réponds vite.
           </p>
         </Reveal>
 
@@ -125,33 +113,18 @@ export default function ContactSection() {
           ))}
         </div>
 
-        {/* Email CTA */}
-        <a
-          href={`mailto:${SITE.email}`}
-          className="btn-primary mx-auto mb-12 inline-flex"
-          style={{ fontSize: '1.05rem', padding: '1.1rem 2.4rem' }}
-        >
-          {SITE.email}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-        </a>
+        {/* Formulaire */}
+        <Reveal className="glass-strong rounded-3xl p-6 sm:p-10">
+          <ContactForm />
+        </Reveal>
 
-        {/* Divider */}
-        <div className="flex items-center gap-4 mb-8 max-w-md mx-auto">
-          <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08))' }} />
-          <span className="text-white/20 text-xs tracking-widest uppercase">Retrouvez-moi</span>
-          <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.08), transparent)' }} />
-        </div>
-
-        {/* Socials */}
-        <div className="flex items-center justify-center gap-4">
+        {/* Réseaux */}
+        <div className="flex items-center justify-center gap-4 mt-12">
           {SOCIALS.map((s) => (
             <a
               key={s.label}
               href={s.href}
-              target={s.href.startsWith('http') ? '_blank' : undefined}
+              target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
               className="w-12 h-12 rounded-xl flex items-center justify-center glass hover:bg-white/[0.08] transition-all duration-300 hover:scale-110"

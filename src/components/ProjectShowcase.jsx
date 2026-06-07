@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PROJECTS } from '../data/site'
 import Reveal from './Reveal'
+import EkipGameHero from './EkipGameHero'
 
 /** Petits éléments réutilisés par les deux mises en page. */
 function ProjectMeta({ project, index }) {
@@ -216,7 +217,11 @@ export default function ProjectShowcase() {
       {/* Une div séparée par site */}
       <div className="flex flex-col gap-24">
         {PROJECTS.map((p, i) =>
-          p.cover ? (
+          p.id === 'ekip-game' ? (
+            <Reveal key={p.id}>
+              <EkipGameHero project={p} index={i} />
+            </Reveal>
+          ) : p.cover ? (
             <ProjectBanner key={p.id} project={p} index={i} />
           ) : (
             <ProjectRow key={p.id} project={p} index={i} />

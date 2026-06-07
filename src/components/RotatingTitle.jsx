@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
  *
  * phrases = [{ lead: 'Lamblin', accent: 'Studio' }, ...]
  */
-export default function RotatingTitle({ phrases = [], interval = 4200, className = '', style = {} }) {
+export default function RotatingTitle({ phrases = [], interval = 3800, className = '', style = {} }) {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
@@ -32,9 +32,11 @@ export default function RotatingTitle({ phrases = [], interval = 4200, className
             className="absolute inset-0 flex items-center justify-center text-center"
             style={{
               opacity: on ? 1 : 0,
-              filter: on ? 'blur(0px)' : 'blur(14px)',
-              transform: on ? 'scale(1)' : 'scale(0.98)',
-              transition: 'opacity 0.9s ease, filter 0.9s ease, transform 0.9s ease',
+              filter: on ? 'blur(0px)' : 'blur(22px)',
+              transform: on ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.94)',
+              letterSpacing: on ? '0em' : '0.04em',
+              transition:
+                'opacity 1.1s cubic-bezier(0.2,0.7,0.2,1), filter 1.1s cubic-bezier(0.2,0.7,0.2,1), transform 1.1s cubic-bezier(0.2,0.7,0.2,1), letter-spacing 1.1s ease',
               pointerEvents: 'none',
             }}
           >

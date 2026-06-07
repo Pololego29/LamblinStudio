@@ -63,16 +63,8 @@ export default function Hero() {
           style={{ fontSize: 'clamp(2.4rem, 7.5vw, 5.4rem)', textShadow: '0 4px 40px rgba(0,0,0,0.5)' }}
         />
 
-        <p
-          className="text-white/70 leading-relaxed mt-6 mx-auto"
-          style={{ maxWidth: '42ch', fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
-        >
-          Sites web, applications web et iOS — conçus, développés et mis en ligne
-          avec soin.
-        </p>
-
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
           <button onClick={() => scrollTo('#projects')} className="btn-primary px-8 py-4 text-base">
             Voir les projets
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -84,24 +76,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 pointer-events-none">
-        <span className="text-white/60 text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-10 relative overflow-hidden bg-white/15">
-          <div
-            className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-blue-400"
-            style={{ animation: 'scrollLine 1.6s ease infinite' }}
-          />
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes scrollLine {
-          0%   { transform: translateY(-100%); }
-          100% { transform: translateY(250%); }
-        }
-      `}</style>
     </section>
   )
 }

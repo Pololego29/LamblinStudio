@@ -9,8 +9,16 @@ export const SITE = {
   github: 'https://github.com/Pololego29',
   linkedin: 'https://www.linkedin.com/in/paul-lamblin',
 
-  // Fonds du hero : ils s'enchaînent en fondu, toutes les 5–9s. Ajoute/retire librement.
-  heroBackgrounds: ['/background.avif', '/fond-2.webp', '/fond-3.webp'],
+  // Fond(s) du hero. (Plusieurs → diaporama en fondu ; un seul → fond fixe.)
+  heroBackgrounds: ['/fond-2.webp'],
+
+  // Section "hover reveal" : 2 images du MÊME cadrage (naturelle → futuriste).
+  // Dépose tes 2 images dans public/ et mets leurs chemins ici.
+  // (Par défaut : démo avec des images existantes, à remplacer.)
+  reveal: {
+    base: '/fond-3.webp',      // image naturelle, visible par défaut
+    futur: '/background.avif', // image révélée autour du curseur
+  },
 
   // Phrases qui se morphent (effet flou) dans le titre du hero.
   heroPhrases: [

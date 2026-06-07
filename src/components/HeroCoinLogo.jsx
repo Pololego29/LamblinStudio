@@ -194,7 +194,7 @@ function Coin({ mouseRef }) {
   const floatT   = useRef(0)
 
   // ── Textures ──────────────────────────────────────────────────────────────
-  const otterTex = useTexture('/brand/otter-coin-web.png')
+  const otterTex = useTexture('/brand/logo.png')
   const striaMap    = useMemo(() => createStriaMap(),    [])
   const goldColorMap= useMemo(() => createGoldColorMap(),[])
   const reedingMap  = useMemo(() => createReedingMap(),  [])
@@ -393,7 +393,7 @@ function CoinFallback() {
     <div style={{ display:'flex', alignItems:'center', justifyContent:'center',
                   width:'100%', height:'100%' }}>
       <img
-        src="/brand/otter-coin-web.png"
+        src="/brand/logo-web.png"
         alt="Lamblin Studio"
         style={{ width:180, height:180, borderRadius:'50%',
                  filter:'drop-shadow(0 0 40px rgba(200,164,84,0.65))' }}

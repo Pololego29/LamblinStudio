@@ -49,76 +49,45 @@ export default function Hero() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
-
-        {/* Logo principal
-            ATTENTION : logo-main-full.png est actuellement un fichier invalide
-            (probablement un AI/PSD renommé). Ré-exportez-le depuis votre logiciel
-            de design en "Exporter > PNG" puis replacez le fichier.
-            En attendant, on affiche logo-main-icon-web.png + texte. */}
-        <div className="mt-28 mb-2 flex flex-col items-center gap-3">
-          <img
-            src="/brand/logo-main-icon-web.png"
-            alt="Lamblin Studio"
-            className="h-14 md:h-16 w-auto object-contain mx-auto select-none"
-            style={{
-              filter:
-                'drop-shadow(0 0 20px rgba(212,168,0,0.3)) drop-shadow(0 0 8px rgba(96,165,250,0.15))',
-            }}
-            draggable={false}
-          />
-        </div>
+      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl">
 
         {/* 3D Coin — responsive sizing */}
         <div
-          className="w-64 h-64 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px]"
+          className="mt-24 w-56 h-56 sm:w-72 sm:h-72 md:w-[400px] md:h-[400px]"
           aria-label="Pièce Lamblin Studio 3D"
         >
           <HeroCoinLogo />
         </div>
 
-        {/* Text block */}
-        <div className="text-center max-w-2xl -mt-4 md:-mt-6">
-          {/* Status badge */}
-          
-
+        {/* Wordmark */}
+        <div className="text-center -mt-2">
           <h1
-            className="font-black text-white tracking-tight leading-[0.95] mb-5"
-            style={{ fontSize: 'clamp(2rem, 5.5vw, 4.2rem)' }}
+            className="font-black tracking-tight leading-[0.95]"
+            style={{ fontSize: 'clamp(2.6rem, 8vw, 5.5rem)' }}
           >
-            Des expériences{' '}
-            <span className="text-gradient">digitales modernes,</span>
-            <br />
-            <span className="text-white/85">pensées pour marquer.</span>
+            <span className="text-white">Lamblin</span>{' '}
+            <span className="text-gradient">Studio</span>
           </h1>
 
           <p
-            className="text-white/45 leading-relaxed mb-8 mx-auto"
+            className="text-white/55 leading-relaxed mt-6 mx-auto"
             style={{
-              maxWidth: '44ch',
-              fontSize: 'clamp(0.9rem, 1.6vw, 1.05rem)',
+              maxWidth: '42ch',
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
             }}
           >
-            Lamblin Studio conçoit sites web, applications et plateformes
-            numériques avec une attention particulière portée au design, à la
-            performance et à l'expérience utilisateur.
+            Sites web, applications web et iOS — conçus, développés et mis en
+            ligne avec soin.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9">
             <button
               onClick={() => scrollTo('#projects')}
               className="btn-primary px-8 py-4 text-base"
             >
-              Découvrir les projets
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
+              Voir les projets
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
@@ -134,9 +103,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 pointer-events-none">
-        <span className="text-white/50 text-xs tracking-widest uppercase">
-          Scroll
-        </span>
+        <span className="text-white/50 text-xs tracking-widest uppercase">Scroll</span>
         <div className="w-px h-10 relative overflow-hidden bg-white/10">
           <div
             className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-yellow-400"

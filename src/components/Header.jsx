@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
+import { SITE } from '../data/site'
 
 const NAV_LINKS = [
-  { label: 'Accueil', href: '#home' },
   { label: 'Projets', href: '#projects' },
-  { label: 'Studio', href: '#studio' },
+  { label: 'À propos', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -25,22 +25,19 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'py-3 glass border-b border-white/[0.06]'
-          : 'py-5 bg-transparent'
+        scrolled ? 'py-3 glass border-b border-white/[0.06]' : 'py-5 bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        {/* Logo + wordmark */}
         <button
           onClick={() => handleNav('#home')}
           className="flex items-center gap-2.5 group"
         >
-          {/* logo-main-icon.png : icône seule, sans le texte */}
           <img
-            src="/brand/logo-main-icon-web.png"
+            src="/brand/logo-web.png"
             alt="Lamblin Studio"
-            className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
+            className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
             draggable={false}
           />
           <span className="font-bold text-white tracking-tight text-lg">
@@ -62,16 +59,13 @@ export default function Header() {
         </nav>
 
         {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={() => handleNav('#contact')}
-            className="btn-primary text-sm py-2.5 px-5"
-          >
+        <div className="hidden md:flex items-center">
+          <a href={`mailto:${SITE.email}`} className="btn-primary text-sm py-2.5 px-5">
             Me contacter
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </button>
+          </a>
         </div>
 
         {/* Mobile burger */}
@@ -100,12 +94,9 @@ export default function Header() {
               {l.label}
             </button>
           ))}
-          <button
-            onClick={() => handleNav('#contact')}
-            className="btn-primary justify-center mt-2"
-          >
+          <a href={`mailto:${SITE.email}`} className="btn-primary justify-center mt-2">
             Me contacter
-          </button>
+          </a>
         </div>
       </div>
     </header>

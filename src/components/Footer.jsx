@@ -1,8 +1,8 @@
+import { SITE } from '../data/site'
+
 const QUICK_LINKS = [
-  { label: 'Accueil', href: '#home' },
   { label: 'Projets', href: '#projects' },
-  { label: 'Studio', href: '#studio' },
-  { label: 'Services', href: '#services' },
+  { label: 'À propos', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -13,15 +13,15 @@ export default function Footer() {
 
   return (
     <footer className="relative border-t border-white/[0.05] px-6 py-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-2">
               <img
-                src="/brand/logo-main-icon.png"
+                src="/brand/logo-web.png"
                 alt="Lamblin Studio"
-                className="h-7 w-7 object-contain select-none"
+                className="h-8 w-8 object-contain select-none"
                 draggable={false}
               />
               <span className="font-bold text-white">
@@ -29,7 +29,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-white/25 text-xs max-w-xs leading-relaxed">
-              Studio digital indépendant — sites web, applications et expériences numériques modernes.
+              Sites web, applications web et iOS — du design à la mise en ligne.
             </p>
           </div>
 
@@ -44,15 +44,21 @@ export default function Footer() {
                 {l.label}
               </button>
             ))}
+            <a
+              href={`mailto:${SITE.email}`}
+              className="text-white/30 hover:text-white/70 text-sm transition-colors duration-200"
+            >
+              Email
+            </a>
           </nav>
         </div>
 
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-white/20 text-xs">© 2026 Lamblin Studio. All rights reserved.</span>
+          <span className="text-white/20 text-xs">© 2026 Lamblin Studio. Tous droits réservés.</span>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-white/20 text-xs">Available for new projects</span>
+            <span className="text-white/20 text-xs">Disponible pour de nouveaux projets</span>
           </div>
         </div>
       </div>

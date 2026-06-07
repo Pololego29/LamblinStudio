@@ -1,8 +1,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ProjectShowcase from './components/ProjectShowcase'
-import StudioSection from './components/StudioSection'
-import ServicesSection from './components/ServicesSection'
+import AboutSection from './components/AboutSection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
 
@@ -13,8 +12,7 @@ export default function App() {
       <main>
         <Hero />
         <ProjectShowcase />
-        <StudioSection />
-        <ServicesSection />
+        <AboutSection />
         <ContactSection />
       </main>
       <Footer />

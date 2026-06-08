@@ -198,7 +198,7 @@ export default function EkipGameHero({ project }) {
       {/* Fondu haut/bas pour intégrer la section dans la page */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'linear-gradient(180deg, #030712 0%, transparent 12%, transparent 88%, #030712 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #030712 0%, transparent 5%, transparent 90%, #030712 100%)' }}
       />
       {/* Glow violet ambiant */}
       <div
@@ -225,7 +225,7 @@ export default function EkipGameHero({ project }) {
             <img
               src={project.logo}
               alt="Ekip Game"
-              className="h-12 md:h-14 w-auto object-contain select-none"
+              className="h-32 md:h-44 w-auto object-contain select-none"
               style={{ filter: `drop-shadow(0 4px 20px ${VIOLET}66)` }}
               onError={() => setLogoErr(true)}
               draggable={false}

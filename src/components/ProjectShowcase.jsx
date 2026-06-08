@@ -202,13 +202,19 @@ function ProjectRow({ project, index }) {
 
 export default function ProjectShowcase() {
   return (
-    <section id="projects" className="py-28">
+    <section id="projects" className="relative pt-12 pb-28 overflow-hidden">
+      {/* Glow ambiant — évite le trou noir entre le hero et le 1er projet */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[520px] rounded-full opacity-[0.06] blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, #6366f1, transparent)' }}
+      />
+
       {/* Header */}
-      <Reveal className="mb-20 text-center px-6">
+      <Reveal className="relative z-10 mb-10 text-center px-6">
         <div className="section-tag mb-4 mx-auto w-fit">Projets</div>
         <h2
           className="font-black text-white tracking-tight leading-none"
-          style={{ fontSize: 'clamp(2.4rem, 5vw, 4rem)' }}
+          style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)' }}
         >
           Mes <span className="text-gradient">projets.</span>
         </h2>

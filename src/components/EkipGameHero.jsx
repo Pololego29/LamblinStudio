@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PhysicsLogo from './PhysicsLogo'
 
 // ── Palette locale (premium gaming nocturne) ────────────────────────────────
 const VIOLET = '#a855f7'
@@ -176,8 +177,6 @@ function SiteCard({ project }) {
 
 // ── Section principale ──────────────────────────────────────────────────────
 export default function EkipGameHero({ project }) {
-  const [logoErr, setLogoErr] = useState(false)
-
   return (
     <div className="relative w-full overflow-hidden">
       {/* Image de fond */}
@@ -210,29 +209,8 @@ export default function EkipGameHero({ project }) {
       {/* ── Contenu (aligné à gauche, pleine largeur) ── */}
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 xl:px-24 min-h-[680px] md:min-h-[90vh] flex flex-col py-8">
 
-        {/* Logo badge (haut gauche, pas de navbar) */}
-        <div className="pt-2">
-          {logoErr ? (
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl"
-              style={{ background: 'rgba(12,8,28,0.5)', backdropFilter: 'blur(12px)', border: `1px solid ${VIOLET}40` }}
-            >
-              <span className="text-lg">🎮</span>
-              <span className="font-extrabold tracking-widest text-white text-sm">
-                EKIP<span style={{ color: VIOLET }}> GAME</span>
-              </span>
-            </div>
-          ) : (
-            <img
-              src={project.logo}
-              alt="Ekip Game"
-              className="h-32 md:h-44 w-auto object-contain select-none"
-              style={{ filter: `drop-shadow(0 4px 20px ${VIOLET}66)` }}
-              onError={() => setLogoErr(true)}
-              draggable={false}
-            />
-          )}
-        </div>
+        {/* Espace réservé : le logo Ekip est l'objet physique flottant (cf. bas) */}
+        <div className="h-32 md:h-44 shrink-0" />
 
         {/* Bloc central (gauche) */}
         <div className="flex-1 flex flex-col justify-center max-w-2xl py-12">
@@ -292,6 +270,15 @@ export default function EkipGameHero({ project }) {
           ))}
         </div>
       </div>
+
+      {/* Logo Ekip — flotte en boucle, tombe au toucher, jouable comme un ballon */}
+      <PhysicsLogo
+        src={project.logo}
+        alt="Ekip Game"
+        size={150}
+        start={{ xPct: 0.13, yPct: 0.18 }}
+        glow="rgba(168,85,247,0.6)"
+      />
     </div>
   )
 }

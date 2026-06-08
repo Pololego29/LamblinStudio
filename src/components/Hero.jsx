@@ -4,6 +4,7 @@
 import { SITE } from '../data/site'
 import RotatingTitle from './RotatingTitle'
 import HoverRevealImage from './HoverRevealImage'
+import PhysicsLogo from './PhysicsLogo'
 
 export default function Hero() {
   const scrollTo = (id) =>
@@ -40,20 +41,8 @@ export default function Hero() {
       {/* ── Content (laisse passer la souris vers le fond, sauf les boutons) ── */}
       <div className="relative z-10 flex flex-col items-center w-full max-w-3xl text-center pointer-events-none">
 
-        {/* Logo */}
-        <div className="relative mb-8">
-          <div
-            className="absolute -inset-6 rounded-full blur-2xl opacity-60"
-            style={{ background: 'radial-gradient(circle, rgba(96,165,250,0.45), transparent 70%)' }}
-          />
-          <img
-            src="/brand/logo-web.png"
-            alt="Lamblin Studio"
-            className="relative w-28 h-28 md:w-36 md:h-36 object-contain select-none"
-            style={{ filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))' }}
-            draggable={false}
-          />
-        </div>
+        {/* (Le logo "ma tête" est désormais l'objet physique flottant ci-dessous) */}
+        <div className="h-32 md:h-44" />
 
         {/*
           ── PIÈCE 3D (désactivée, gardée au cas où) ──
@@ -82,6 +71,15 @@ export default function Hero() {
           </button>
         </div>
       </div>
+
+      {/* Logo "ma tête" — flotte en boucle, tombe au toucher, jouable comme un ballon */}
+      <PhysicsLogo
+        src="/brand/logo-web.png"
+        alt="Lamblin Studio"
+        size={132}
+        start={{ xPct: 0.5, yPct: 0.24 }}
+        glow="rgba(96,165,250,0.55)"
+      />
     </section>
   )
 }

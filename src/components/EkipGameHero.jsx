@@ -131,12 +131,13 @@ function SiteCard({ project }) {
           boxShadow: `0 14px 40px -16px ${VIOLET}66`,
         }}
       >
-        {/* Vignette / image */}
-        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0" style={{ border: `1px solid ${VIOLET}40` }}>
+        {/* Icône : remplit exactement le carré (ses propres bords font foi,
+            pas de bordure/clip HTML → évite le dédoublement) */}
+        <div className="w-16 h-16 shrink-0">
           {imgErr ? (
             <div
-              className="w-full h-full flex items-center justify-center text-2xl"
-              style={{ background: `linear-gradient(135deg, ${VIOLET}33, ${CYAN}22)` }}
+              className="w-full h-full rounded-xl flex items-center justify-center text-2xl"
+              style={{ background: `linear-gradient(135deg, ${VIOLET}33, ${CYAN}22)`, border: `1px solid ${VIOLET}40` }}
             >
               🎮
             </div>

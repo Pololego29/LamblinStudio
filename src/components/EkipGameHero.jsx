@@ -206,8 +206,8 @@ export default function EkipGameHero({ project }) {
         style={{ background: `radial-gradient(circle, ${VIOLET}, transparent 70%)` }}
       />
 
-      {/* ── Contenu ── */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 min-h-[680px] md:min-h-[90vh] flex flex-col py-8">
+      {/* ── Contenu (aligné à gauche, pleine largeur) ── */}
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 xl:px-24 min-h-[680px] md:min-h-[90vh] flex flex-col py-8">
 
         {/* Logo badge (haut gauche, pas de navbar) */}
         <div className="pt-2">

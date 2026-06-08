@@ -271,12 +271,15 @@ export default function EkipGameHero({ project }) {
         </div>
       </div>
 
-      {/* Logo Ekip — flotte en boucle, tombe au toucher, jouable comme un ballon */}
+      {/* Logo Ekip — flotte surtout en horizontal (peu de vertical pour ne pas
+          recouvrir "EKIP GAME"), tombe au toucher, jouable comme un ballon */}
       <PhysicsLogo
         src={project.logo}
         alt="Ekip Game"
         size={150}
-        start={{ xPct: 0.13, yPct: 0.18 }}
+        start={{ xPct: 0.12, yPct: 0.15 }}
+        float={{ x: 150, y: 5 }}
+        sweepRight
         glow="rgba(168,85,247,0.6)"
       />
     </div>

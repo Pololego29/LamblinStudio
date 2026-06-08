@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react'
 
 /**
  * Logo "ballon" interactif.
- * - Au repos : flotte doucement en boucle.
+ * - Au repos : flotte doucement en boucle (amplitude réglable via `float`).
  * - Dès qu'on le touche : la gravité s'active, il tombe.
  * - On peut l'attraper et le lancer (drag & throw) ; il rebondit sur les bords
  *   et le sol de sa div parente et ne peut PAS en sortir.
+ * - Après `returnDelay` ms sans être touché, il revient lentement à sa place
+ *   puis reprend son vol.
  *
  * À placer comme enfant direct d'un conteneur `position: relative` (sa div).
  */
@@ -14,7 +16,10 @@ export default function PhysicsLogo({
   alt = '',
   size = 130,
   start = { xPct: 0.5, yPct: 0.3 },
+  float = { x: 16, y: 12 }, // amplitude du flottement (px)
+  sweepRight = false,       // true → balaie uniquement vers la droite (ancre = bord gauche)
   glow = 'rgba(96,165,250,0.5)',
+  returnDelay = 10000,
   zIndex = 20,
 }) {
   const ref = useRef(null)
@@ -22,8 +27,8 @@ export default function PhysicsLogo({
   const s = useRef({
     x: 0, y: 0, vx: 0, vy: 0, ang: 0, va: 0,
     mode: 'float', dragging: false,
-    t: Math.random() * 10, bx: 0, by: 0,
-    last: null,
+    t: 0, bx: 0, by: 0,
+    last: null, lastTouch: 0,
   })
 
   const container = () => ref.current?.parentElement
@@ -60,9 +65,26 @@ export default function PhysicsLogo({
           // position pilotée par le pointeur (cf. onMove)
         } else if (st2.mode === 'float') {
           st2.t += 0.016
-          st2.x = st2.bx + Math.sin(st2.t * 0.9) * 16
-          st2.y = st2.by + Math.sin(st2.t * 1.4 + 1) * 12
-          st2.ang = Math.sin(st2.t * 0.7) * 6
+          // symétrique (±float.x) ou balayage vers la droite uniquement (0 → float.x)
+          const fx = sweepRight
+            ? (Math.sin(st2.t * 0.8) * 0.5 + 0.5) * float.x
+            : Math.sin(st2.t * 0.9) * float.x
+          st2.x = st2.bx + fx
+          st2.y = st2.by + Math.sin(st2.t * 1.4) * float.y
+          st2.ang = Math.sin(st2.t * 0.7) * (sweepRight ? 3 : 5)
+        } else if (st2.mode === 'returning') {
+          // retour lent vers la position d'origine
+          st2.x += (st2.bx - st2.x) * 0.045
+          st2.y += (st2.by - st2.y) * 0.045
+          st2.ang += (0 - st2.ang) * 0.06
+          st2.vx = st2.vy = st2.va = 0
+          if (Math.hypot(st2.bx - st2.x, st2.by - st2.y) < 1.5 && Math.abs(st2.ang) < 0.8) {
+            st2.mode = 'float'
+            st2.t = 0
+            st2.x = st2.bx
+            st2.y = st2.by
+            st2.ang = 0
+          }
         } else {
           // ── Physique ──
           st2.vy += 0.55 // gravité
@@ -83,6 +105,11 @@ export default function PhysicsLogo({
             st2.va = st2.vx * 0.9   // roule
             if (Math.abs(st2.vy) < 1.4) st2.vy = 0
           }
+
+          // revient en place après un temps sans être touché
+          if (performance.now() - st2.lastTouch > returnDelay) {
+            st2.mode = 'returning'
+          }
         }
         apply()
       }
@@ -97,6 +124,7 @@ export default function PhysicsLogo({
     const st = s.current
     st.dragging = true
     st.mode = 'physics'
+    st.lastTouch = performance.now()
     e.currentTarget.setPointerCapture?.(e.pointerId)
     const rc = container().getBoundingClientRect()
     st.x = e.clientX - rc.left
@@ -108,6 +136,7 @@ export default function PhysicsLogo({
   const onMove = (e) => {
     const st = s.current
     if (!st.dragging) return
+    st.lastTouch = performance.now()
     const rc = container().getBoundingClientRect()
     const ivx = e.clientX - st.last.x
     const ivy = e.clientY - st.last.y
@@ -121,6 +150,7 @@ export default function PhysicsLogo({
   const onUp = () => {
     const st = s.current
     st.dragging = false
+    st.lastTouch = performance.now()
     const cap = 45
     st.vx = Math.max(-cap, Math.min(cap, st.vx))
     st.vy = Math.max(-cap, Math.min(cap, st.vy))

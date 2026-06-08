@@ -54,7 +54,7 @@ export const PROJECTS = [
     display: 'ekipgame.com',        // texte affiché sur la card
     cover: '/ekip-game-cover.webp', // image de fond du hero (dépose la tienne ici pour la remplacer)
     logo: '/ekip-logo.png',         // logo badge en haut à gauche (dépose-le dans public/)
-    cardImage: '/ekip-card.png',    // image de la card "Voir le site" (dépose-la dans public/)
+    cardImage: '/ekip-card.webp',   // icône dans la card "Voir le site"
     accent: '#22d3ee',
     glow: 'rgba(6,182,212,0.30)',
     bg: 'radial-gradient(ellipse at 30% 0%, rgba(6,182,212,0.22) 0%, rgba(59,130,246,0.10) 45%, rgba(3,7,18,0) 100%)',

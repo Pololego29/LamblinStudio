@@ -3,17 +3,27 @@ import { PROJECTS } from '../data/site'
 import Reveal from './Reveal'
 import EkipGameHero from './EkipGameHero'
 
+/** Pastille d'état : 'live' (par défaut) ou 'wip' (projet en cours). */
+const STATUS = {
+  live: { label: 'En ligne', color: '#34d399' },
+  wip: { label: 'En développement', color: '#fbbf24' },
+}
+
 /** Petits éléments réutilisés par les deux mises en page. */
 function ProjectMeta({ project, index }) {
+  const status = STATUS[project.status] ?? STATUS.live
   return (
     <>
       <div className="flex items-center gap-3 mb-4">
         <span className="font-mono text-sm font-bold" style={{ color: project.accent }}>
           0{index + 1}
         </span>
-        <span className="flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase text-emerald-400">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          En ligne
+        <span
+          className="flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase"
+          style={{ color: status.color }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: status.color }} />
+          {status.label}
         </span>
       </div>
       <div className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: project.accent }}>
@@ -62,6 +72,23 @@ function VisitButton({ project }) {
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <path d="M7 17 17 7M9 7h8v8" />
       </svg>
+    </span>
+  )
+}
+
+/** Remplace le bouton "Visiter" pour un projet pas encore en ligne. */
+function SoonBadge({ project }) {
+  return (
+    <span
+      className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-bold"
+      style={{
+        background: 'rgba(255,255,255,0.05)',
+        border: `1px solid ${project.accent}55`,
+        color: project.accent,
+      }}
+    >
+      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: project.accent }} />
+      Bientôt en ligne
     </span>
   )
 }
@@ -123,13 +150,19 @@ function ProjectBanner({ project, index }) {
 /** Aperçu "fenêtre de navigateur" (cliquable vers le site). */
 function BrowserPreview({ project }) {
   const [hovered, setHovered] = useState(false)
-  const host = project.url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  const host = project.url
+    ? project.url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    : project.display || 'bientôt en ligne'
+
+  // Projet pas encore en ligne → aperçu non cliquable.
+  const Tag = project.url ? 'a' : 'div'
+  const linkProps = project.url
+    ? { href: project.url, target: '_blank', rel: 'noopener noreferrer' }
+    : {}
 
   return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Tag
+      {...linkProps}
       className="block rounded-2xl overflow-hidden group"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -173,7 +206,7 @@ function BrowserPreview({ project }) {
           {project.title}
         </span>
       </div>
-    </a>
+    </Tag>
   )
 }
 
@@ -192,9 +225,13 @@ function ProjectRow({ project, index }) {
           {project.description}
         </p>
         <ProjectTags tags={project.tags} />
-        <a href={project.url} target="_blank" rel="noopener noreferrer" className="group inline-block">
-          <VisitButton project={project} />
-        </a>
+        {project.url ? (
+          <a href={project.url} target="_blank" rel="noopener noreferrer" className="group inline-block">
+            <VisitButton project={project} />
+          </a>
+        ) : (
+          <SoonBadge project={project} />
+        )}
       </div>
     </Reveal>
   )

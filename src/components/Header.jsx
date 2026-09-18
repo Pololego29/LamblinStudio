@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 const NAV_LINKS = [
   { label: 'Projets', href: '#projects', id: 'projects' },
+  { label: 'Apps iOS', href: '#ios', id: 'ios' },
   { label: 'À propos', href: '#about', id: 'about' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ]
@@ -19,7 +20,7 @@ export default function Header() {
 
   // Surligne le lien de la section actuellement visible
   useEffect(() => {
-    const ids = ['home', 'projects', 'about', 'contact']
+    const ids = ['home', 'projects', 'ios', 'about', 'contact']
     const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
     const io = new IntersectionObserver(
       (entries) => {

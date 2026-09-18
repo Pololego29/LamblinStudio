@@ -1,5 +1,6 @@
 const QUICK_LINKS = [
   { label: 'Projets', href: '#projects' },
+  { label: 'Apps iOS', href: '#ios' },
   { label: 'À propos', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]

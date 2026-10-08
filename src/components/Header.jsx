@@ -1,127 +1,126 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { SITE } from '../data/site'
 
-const NAV_LINKS = [
-  { label: 'Projets', href: '#projects', id: 'projects' },
-  { label: 'Apps iOS', href: '#ios', id: 'ios' },
-  { label: 'À propos', href: '#about', id: 'about' },
-  { label: 'Contact', href: '#contact', id: 'contact' },
+const NAV = [
+  { label: 'Jeux', id: 'jeux' },
+  { label: 'Studio', id: 'studio' },
+  { label: 'Contact', id: 'contact' },
 ]
 
 export default function Header() {
+  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [active, setActive] = useState('home')
+  const [active, setActive] = useState('')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Surligne le lien de la section actuellement visible
+  // Lien actif selon la section visible
   useEffect(() => {
-    const ids = ['home', 'projects', 'ios', 'about', 'contact']
-    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
+    const els = NAV.map((n) => document.getElementById(n.id)).filter(Boolean)
     const io = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActive(visible.target.id)
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id)
+        })
       },
-      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5, 1] }
+      { rootMargin: '-45% 0px -50% 0px' },
     )
-    sections.forEach((s) => io.observe(s))
+    els.forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [])
 
-  const handleNav = (href) => {
-    setMenuOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
+  // Fermer le menu mobile avec Échap
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'py-3 glass border-b border-white/[0.06]' : 'py-5 bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-200 ${
+        scrolled || open ? 'border-line bg-ink-950/95 backdrop-blur' : 'border-transparent bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo + wordmark */}
-        <button onClick={() => handleNav('#home')} className="flex items-center gap-2.5 group">
+      <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
+        <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <img
-            src="/brand/logo-web.png"
-            alt="Lamblin Studio"
-            className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110 select-none"
-            draggable={false}
+            src="/brand/otter-octagon-128.webp"
+            alt=""
+            width="36"
+            height="40"
+            className="h-10 w-9 object-contain"
+            decoding="async"
           />
-          <span className="font-bold text-white tracking-tight text-lg">
-            Lamblin<span className="text-gradient-blue"> Studio</span>
+          <span className="font-display text-[1.45rem] font-bold uppercase leading-none tracking-wide text-bone">
+            {SITE.name}
           </span>
-        </button>
+        </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => handleNav(l.href)}
-              className={`relative text-sm transition-colors duration-200 font-medium tracking-wide ${
-                active === l.id ? 'text-white' : 'text-white/55 hover:text-white'
-              }`}
-            >
-              {l.label}
-              <span
-                className="absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300"
-                style={{ width: active === l.id ? '100%' : '0%' }}
-              />
-            </button>
-          ))}
+        <nav aria-label="Navigation principale" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {NAV.map((n) => (
+              <li key={n.id}>
+                <a
+                  href={`#${n.id}`}
+                  aria-current={active === n.id ? 'true' : undefined}
+                  className={`relative block px-4 py-2 text-[0.95rem] font-medium transition-colors ${
+                    active === n.id ? 'text-bone' : 'text-muted hover:text-bone'
+                  }`}
+                >
+                  {n.label}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute inset-x-4 -bottom-0.5 h-0.5 bg-gold transition-opacity ${
+                      active === n.id ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center">
-          <button onClick={() => handleNav('#contact')} className="btn-primary text-sm py-2.5 px-5">
-            Me contacter
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile burger */}
         <button
-          className="md:hidden p-2 text-white/70 hover:text-white transition-colors"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          type="button"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-bone md:hidden"
+          aria-expanded={open}
+          aria-controls="menu-mobile"
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          onClick={() => setOpen((v) => !v)}
         >
-          <div className="w-5 flex flex-col gap-1.5">
-            <span className={`block h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-0.5 bg-current transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-          </div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M3 7h18M3 12h18M3 17h18" />}
+          </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="glass border-t border-white/[0.06] px-6 py-4 flex flex-col gap-4">
-          {NAV_LINKS.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => handleNav(l.href)}
-              className={`text-left transition-colors font-medium py-1 ${
-                active === l.id ? 'text-white' : 'text-white/70 hover:text-white'
-              }`}
-            >
-              {l.label}
-            </button>
+      <nav
+        id="menu-mobile"
+        aria-label="Navigation mobile"
+        hidden={!open}
+        className="border-t border-line bg-ink-950 md:hidden"
+      >
+        <ul className="container-page flex flex-col py-2">
+          {NAV.map((n) => (
+            <li key={n.id}>
+              <a
+                href={`#${n.id}`}
+                onClick={() => setOpen(false)}
+                className="block border-b border-line/60 py-3.5 font-display text-2xl font-semibold uppercase tracking-wide text-bone last:border-0"
+              >
+                {n.label}
+              </a>
+            </li>
           ))}
-          <button onClick={() => handleNav('#contact')} className="btn-primary justify-center mt-2">
-            Me contacter
-          </button>
-        </div>
-      </div>
+        </ul>
+      </nav>
     </header>
   )
 }

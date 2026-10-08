@@ -1,0 +1,22 @@
+# Dépendances et build
+node_modules/
+dist/
+dist-ssr/
+
+# Fichiers locaux / secrets
+*.local
+.env
+.env.*
+!.env.example
+
+# Systèmes et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs et outils
+*.log
+npm-debug.log*
+.lighthouseci/

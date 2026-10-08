@@ -1,0 +1,5 @@
+# À CONFIRMER : domaine lamblinstudio.fr
+User-agent: *
+Allow: /
+
+Sitemap: https://lamblinstudio.fr/sitemap.xml

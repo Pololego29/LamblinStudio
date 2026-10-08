@@ -7,13 +7,24 @@ export default function SevenFronts() {
       <div className="container-page">
         {/* En-tête du projet */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 id="sf-title" className="text-[clamp(3rem,9vw,6rem)] uppercase text-bone">
-              {G.title}
-            </h2>
-            <p className="mt-3 font-display text-[clamp(1.35rem,3vw,1.9rem)] font-semibold uppercase leading-none text-gold">
-              {G.genre}
-            </p>
+          <div className="flex items-center gap-5 sm:gap-7">
+            <img
+              src="/games/seven-fronts-icon.svg"
+              alt=""
+              width={112}
+              height={112}
+              loading="lazy"
+              decoding="async"
+              className="h-20 w-20 shrink-0 rounded-[22%] shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] ring-1 ring-[#2f5a6c] sm:h-28 sm:w-28"
+            />
+            <div>
+              <h2 id="sf-title" className="text-[clamp(3rem,9vw,6rem)] uppercase text-bone">
+                {G.title}
+              </h2>
+              <p className="mt-3 font-display text-[clamp(1.35rem,3vw,1.9rem)] font-semibold uppercase leading-none text-gold">
+                {G.genre}
+              </p>
+            </div>
           </div>
           <p className="status self-start md:self-auto">{G.status}</p>
         </div>

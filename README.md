@@ -35,6 +35,8 @@ public/          fichiers statiques (logos optimisés, favicon, og-image, robots
 src/components/  sections du site
 src/data/        contenu centralisé (site.js)
 src/assets/      illustrations importées par les composants
+scripts/map/     générateur de la carte stylisée de Seven Fronts (Python + shapely)
+docs/screenshots captures d'écran (desktop, mobile, hero)
 ```
 
 `node_modules/` et `dist/` ne sont pas versionnés.

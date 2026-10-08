@@ -1,17 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/brand/logo-web.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Lamblin Studio — Studio digital indépendant. Sites web, applications et expériences numériques modernes." />
-    <title>Lamblin Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Lamblin Studio — Studio indépendant de jeux vidéo</title>
+    <meta
+      name="description"
+      content="Lamblin Studio, studio indépendant de jeux vidéo : conception et développement de jeux multijoueurs, dont Seven Fronts, jeu de stratégie militaire en temps réel, et Police vs Voleurs."
+    />
+    <meta name="theme-color" content="#0b0f10" />
+    <meta name="color-scheme" content="dark" />
+    <!-- À CONFIRMER : domaine lamblinstudio.fr (déduit de l'adresse contact@lamblinstudio.fr) -->
+    <link rel="canonical" href="https://lamblinstudio.fr/" />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/brand/otter-coin-512.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Lamblin Studio" />
+    <meta property="og:title" content="Lamblin Studio — Studio indépendant de jeux vidéo" />
+    <meta
+      property="og:description"
+      content="Conception et développement de jeux multijoueurs : Seven Fronts, jeu de stratégie militaire en temps réel, et Police vs Voleurs."
+    />
+    <meta property="og:url" content="https://lamblinstudio.fr/" />
+    <meta property="og:image" content="https://lamblinstudio.fr/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pièce d'or à l'effigie de la loutre et nom Lamblin Studio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lamblin Studio — Studio indépendant de jeux vidéo" />
+    <meta
+      name="twitter:description"
+      content="Conception et développement de jeux multijoueurs : Seven Fronts et Police vs Voleurs."
+    />
+    <meta name="twitter:image" content="https://lamblinstudio.fr/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Lamblin Studio",
+        "description": "Studio indépendant de développement de jeux vidéo.",
+        "url": "https://lamblinstudio.fr/",
+        "logo": "https://lamblinstudio.fr/icon-192.png",
+        "email": "contact@lamblinstudio.fr",
+        "founder": {
+          "@type": "Person",
+          "name": "Paul Lamblin",
+          "url": "https://paul-lamblin.com",
+          "sameAs": ["https://github.com/Pololego29", "https://www.linkedin.com/in/paul-lamblin"]
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="padding:1rem;font-family:system-ui,sans-serif;color:#e8e2d4;background:#0b0f10">
+        Lamblin Studio — studio indépendant de jeux vidéo. Contact : contact@lamblinstudio.fr
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
